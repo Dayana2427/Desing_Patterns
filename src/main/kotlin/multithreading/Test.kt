@@ -1,38 +1,32 @@
 package multithreading
 
 import kotlin.concurrent.thread
-import kotlin.random.Random
 
 fun main() {
-    print ("Ingrese un número entre 0 y 1_000_000_000: ")
-    val number = readln().toInt()
-    var win = false
-    thread {
-        var seconds = 1
-        while (!win){
-            println(seconds++)
-            Thread.sleep(1000)
+    val counter = Counter()
+    val thread1= thread {
+        repeat(1_000_000) {
+            counter.increment()
         }
     }
-    thread {
-        while (true) {
-            val option = Random.nextInt(1_000_000_001)
-            if (option == number) {
-                println("!Ganadador! Tu número es: $option")
-                win = true
-                break
-            }
+    val thread2 = thread {
+        repeat(1_000_000) {
+            counter.increment()
         }
     }
+    thread1.join()
+    thread2.join()
+    println(counter.number)
 }
 
-/*thread {
-    repeat(100_000) {
-        print(" 0 ")
-        Thread.sleep(1000)
+class Counter {
+    private val lock = Any()
+
+    var number: Int = 0
+
+    fun increment(){
+        synchronized(lock) {
+            number++
+        }
     }
 }
-repeat(100_000){
-    print(" * ")
-    Thread.sleep(1000)
-}*/
