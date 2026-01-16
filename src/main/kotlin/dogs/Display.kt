@@ -1,5 +1,6 @@
 package dogs
 
+import observer.Observer
 import java.awt.Dimension
 import java.awt.Font
 import java.awt.Insets
@@ -19,14 +20,14 @@ class Display {
         val scrollPane = JScrollPane(textArea)
         JFrame().apply {
             isVisible = true
-            size = Dimension(400, 400)
+            size = Dimension(600, 400)
             isResizable = false
             add(scrollPane)
         }
-        DogsRepository.Companion.getInstance("sango")
-            .dogs
-            .joinToString("\n")
-            .let { textArea.text = it }
+        DogsRepository.getInstance("sango").registerObserver(object: Observer<List<Dog>> {
+            override fun onChanged(newValue: List<Dog>) {
+                newValue.joinToString("\n")
+            }
+        })
     }
-
 }
