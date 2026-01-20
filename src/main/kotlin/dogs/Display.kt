@@ -7,7 +7,6 @@ import java.awt.Insets
 import javax.swing.JFrame
 import javax.swing.JScrollPane
 import javax.swing.JTextArea
-import kotlin.toString
 
 class Display {
 
@@ -24,10 +23,8 @@ class Display {
             isResizable = false
             add(scrollPane)
         }
-        DogsRepository.getInstance("sango").registerObserver(object: Observer<List<Dog>> {
-            override fun onChanged(newValue: List<Dog>) {
-                newValue.joinToString("\n")
-            }
-        })
+        DogsRepository.getInstance("sango").addOnDogsChangedListener { dogs ->
+            dogs.joinToString("\n").let { textArea.text = it }
+        }
     }
 }

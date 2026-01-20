@@ -27,7 +27,7 @@ class UsersRepository private constructor() {
         }
     }
 
-    fun registerObserver(observer: Observer<List<User>>) {
+    fun addOnUsersChangedListener(observer: Observer<List<User>>) {
         observers.add(observer)
         observer.onChanged(users)
     }
@@ -44,7 +44,7 @@ class UsersRepository private constructor() {
         notifyObservers()
     }
 
-    fun saveChanges() {
+    fun saveChanges()  {
         val content = Json.encodeToString(_users)
         file.writeText(content)
     }
