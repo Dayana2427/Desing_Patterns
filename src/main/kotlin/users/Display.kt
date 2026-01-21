@@ -7,6 +7,7 @@ import java.awt.Insets
 import javax.swing.JFrame
 import javax.swing.JScrollPane
 import javax.swing.JTextArea
+import kotlin.concurrent.thread
 
 class Display {
 
