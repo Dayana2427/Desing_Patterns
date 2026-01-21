@@ -1,4 +1,4 @@
-package dogs
+package users
 
 import observer.Observer
 import java.awt.Dimension
@@ -7,8 +7,9 @@ import java.awt.Insets
 import javax.swing.JFrame
 import javax.swing.JScrollPane
 import javax.swing.JTextArea
+import kotlin.concurrent.thread
 
-class Display {
+class DisplayOldest {
 
     fun show() {
         val textArea = JTextArea().apply {
@@ -19,12 +20,12 @@ class Display {
         val scrollPane = JScrollPane(textArea)
         JFrame().apply {
             isVisible = true
-            size = Dimension(600, 400)
+            size = Dimension(800, 400)
             isResizable = false
             add(scrollPane)
         }
-        DogsRepository.getInstance("sango").dogs.registerObserver { dogs ->
-            dogs.joinToString("\n").let { textArea.text = it }
+        UsersRepository.getInstance("qwerty").oldestUser.registerObserver {
+            textArea.text = "La persona más vieja es: $it"
         }
     }
 }

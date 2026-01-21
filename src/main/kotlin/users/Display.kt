@@ -24,7 +24,7 @@ class Display {
             isResizable = false
             add(scrollPane)
         }
-        UsersRepository.getInstance("qwerty").addOnUsersChangedListener {
+        UsersRepository.getInstance("qwerty").users.registerObserver {
             textArea.text = it.joinToString("\n")
         }
     }
