@@ -33,7 +33,9 @@ class Administrator {
     private fun deleteUser() {
         print("Ingrese ID: ")
         val id = readln().toInt()
-        repository.deleteUser(id)
+        UsersInvoker.addCommand {
+            repository.deleteUser(id)
+        }
     }
 
     private fun addUser() {
@@ -43,7 +45,9 @@ class Administrator {
         val lastName = readln()
         print("Ingrese la edad: ")
         val age = readln().toInt()
-        repository.addUser(firstName, lastName, age)
+        UsersInvoker.addCommand {
+            repository.addUser(firstName, lastName, age)
+        }
     }
 }
 

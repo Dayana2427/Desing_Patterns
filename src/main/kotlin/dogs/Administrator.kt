@@ -33,7 +33,9 @@ class Administrator {
     private fun deleteUser() {
         print("Ingrese ID: ")
         val id = readln().toInt()
-        repository.deleteDog(id)
+        DogsInvoker.addCommand {
+            repository.deleteDog(id)
+        }
     }
 
     private fun addUser() {
@@ -43,7 +45,9 @@ class Administrator {
         val name = readln()
         print("Ingrese el peso: ")
         val weight = readln().toDouble()
-        repository.addDog(breed, name, weight)
+        DogsInvoker.addCommand {
+            repository.addDog(breed, name, weight)
+        }
     }
 }
 

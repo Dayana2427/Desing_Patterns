@@ -1,10 +1,13 @@
 package users
 
+import command.Command
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import observer.MutableObservable
 import observer.Observable
 import java.io.File
+import java.util.concurrent.LinkedBlockingQueue
+import kotlin.concurrent.thread
 
 class UsersRepository private constructor() {
 
@@ -27,6 +30,7 @@ class UsersRepository private constructor() {
     private fun loadAllUsers(): MutableList<User> = Json.decodeFromString(file.readText().trim())
 
     fun addUser(firstName: String, lastname: String, age: Int) {
+        Thread.sleep(10_000)
         val id = usersList.maxOf { it.id } +1
         val user = User(id, age, firstName, lastname)
         usersList.add(user)
@@ -37,6 +41,7 @@ class UsersRepository private constructor() {
     }
 
     fun deleteUser(id: Int) {
+        Thread.sleep(10_000)
         usersList.removeIf { it.id == id }
         _users.currentValue = usersList.toList()
         val newOldest = usersList.maxBy { it.age }
