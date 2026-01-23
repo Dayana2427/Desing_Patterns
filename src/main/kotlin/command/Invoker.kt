@@ -1,5 +1,6 @@
 package command
 
-interface Invoker {
-    fun addCommand(command: Command)
+interface Invoker<T: Command> {
+
+    fun addCommand(command: T)
 }

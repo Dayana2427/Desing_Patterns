@@ -20,34 +20,30 @@ class Administrator {
             val operation = operations[operationIndex]
             when(operation) {
                 Operation.EXIT -> {
-                    repository.saveChanges()
+                    DogsInvoker.addCommand(AdministratorCommands.SaveChanges(repository))
                     break
                 }
 
-                Operation.ADD_DOG -> addUser()
-                Operation.DELETE_DOG -> deleteUser()
+                Operation.ADD_DOG -> addDog()
+                Operation.DELETE_DOG -> deleteDog()
             }
         }
     }
 
-    private fun deleteUser() {
+    private fun deleteDog() {
         print("Ingrese ID: ")
         val id = readln().toInt()
-        DogsInvoker.addCommand {
-            repository.deleteDog(id)
-        }
+        DogsInvoker.addCommand(AdministratorCommands.DeleteDog(repository, id))
     }
 
-    private fun addUser() {
+    private fun addDog() {
         print("Ingrese la raz: ")
         val breed = readln()
         print("Ingrese el nombre: ")
         val name = readln()
         print("Ingrese el peso: ")
         val weight = readln().toDouble()
-        DogsInvoker.addCommand {
-            repository.addDog(breed, name, weight)
-        }
+        DogsInvoker.addCommand (AdministratorCommands.AddDog(repository, breed, name, weight))
     }
 }
 

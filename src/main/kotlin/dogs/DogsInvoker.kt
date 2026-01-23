@@ -5,7 +5,7 @@ import command.Invoker
 import java.util.concurrent.LinkedBlockingQueue
 import kotlin.concurrent.thread
 
-object DogsInvoker: Invoker {
+object DogsInvoker: Invoker<AdministratorCommands> {
 
     private val commands = LinkedBlockingQueue<Command>()
 
@@ -21,7 +21,7 @@ object DogsInvoker: Invoker {
         }
     }
 
-    override fun addCommand(command: Command) {
+    override fun addCommand(command: AdministratorCommands) {
         println("Nuevo comando: $command")
         commands.add(command)
     }
